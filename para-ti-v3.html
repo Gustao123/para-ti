@@ -91,6 +91,15 @@ background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,9
  .g1{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;align-items:start}.g1 .tray{margin-top:0}
  .paper{font-size:1.65rem;padding:40px 50px 30px 90px;background-image:linear-gradient(90deg,transparent 70px,#ef9a9a 70px,#ef9a9a 72px,transparent 72px),repeating-linear-gradient(transparent,transparent 35px,#bcd0ee 35px,#bcd0ee 36px)}
 }
+
+.doodle{height:108px;margin:0 0 36px}.doodle svg{width:100%;height:100%;display:block}
+.env{width:min(300px,80vw);margin:10px auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.env svg{width:100%;height:auto;display:block;overflow:visible}
+#flap{transform-origin:130px 60px;transition:transform .8s}
+#lt{transition:transform .8s .5s}#seal{transform-origin:130px 132px;transition:opacity .4s}
+.env.open #flap{transform:scaleY(-1)}.env.open #lt{transform:translateY(-60px)}.env.open #seal{opacity:0}
+.wob{animation:wob .35s}@keyframes wob{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+.env:not(.open){animation:bob 2.2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}
 </style>
 </head>
 <body>
@@ -186,7 +195,28 @@ background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,9
   <div class="row"><button class="btn" data-go="7">Continuar →</button></div>
 </div></section>
 
-<section class="screen" id="s7"><div class="paper letter">
+<section class="screen" id="s7"><div class="card center">
+  <h2>Nivel final</h2>
+  <div class="env" id="env"><svg viewBox="0 -30 260 230" aria-label="Sobre">
+    <path d="M10 60h240v130H10z" fill="#f5c6e3" stroke="#7a43c0" stroke-width="3"/>
+    <g id="lt"><rect x="35" y="40" width="190" height="120" fill="#fffdf2" stroke="#7a43c0" stroke-width="2"/><path d="M55 70h150M55 90h150M55 110h110" stroke="#bcd0ee" stroke-width="2"/><path d="M130 135c-18-10-14-24-4-22 4 1 4 4 4 5 0-1 0-4 4-5 10-2 14 12-4 22z" fill="#e0699f"/></g>
+    <path d="M10 190V60l120 78 120-78v130z" fill="#e9a8d0" stroke="#7a43c0" stroke-width="3" stroke-linejoin="round"/>
+    <path id="flap" d="M10 60h240L130 138Z" fill="#c88be8" stroke="#7a43c0" stroke-width="3" stroke-linejoin="round"/>
+    <g id="seal"><circle cx="130" cy="130" r="16" fill="#e0455f" stroke="#a82840" stroke-width="2"/><text x="130" y="137" text-anchor="middle" font-size="18" fill="#fff">♥</text></g>
+  </svg></div>
+  <div class="msg" id="msg7">Algo llegó para ti. Toca el sello para romperlo.</div>
+</div></section>
+
+<section class="screen" id="s8"><div class="paper letter">
+<div class="doodle"><svg viewBox="0 0 600 108" fill="none" stroke="#5b6fc9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 98H580" stroke-dasharray="2 7"/>
+<path d="M40 98V58L75 32L110 58V98Z" fill="#ffe9f3"/><path d="M65 98V80a10 10 0 0 1 20 0V98"/><rect x="48" y="64" width="12" height="12"/><rect x="90" y="64" width="12" height="12"/>
+<path d="M75 22c-4-9-15-3-8 5l8 8 8-8c7-8-4-14-8-5z" fill="#e0699f" stroke="#e0699f"/>
+<path d="M205 98V70M397 98V70M200 70H402M205 56H400M215 70V56M247 70V56M279 70V56M311 70V56M343 70V56M375 70V56"/>
+<path d="M205 98a24 26 0 0 1 48 0M253 98a24 26 0 0 1 48 0M301 98a24 26 0 0 1 48 0M349 98a24 26 0 0 1 48 0"/>
+<path d="M470 98V50M470 82q-12-2-14-12q12 0 14 12" stroke="#59a96a"/><g fill="#f4a6c8" stroke="#e0699f"><circle cx="470" cy="38" r="6"/><circle cx="470" cy="56" r="6"/><circle cx="461" cy="47" r="6"/><circle cx="479" cy="47" r="6"/></g><circle cx="470" cy="47" r="4" fill="#f2b84b" stroke="#f2b84b"/>
+<path d="M515 98V68" stroke="#59a96a"/><g fill="#d9c2f5" stroke="#9b5de5"><circle cx="515" cy="58" r="5"/><circle cx="515" cy="74" r="5"/><circle cx="507" cy="66" r="5"/><circle cx="523" cy="66" r="5"/></g><circle cx="515" cy="66" r="3" fill="#f2b84b" stroke="#f2b84b"/>
+<text x="150" y="40" font-size="24" fill="#f2b84b" stroke="none">✦</text><text x="430" y="30" font-size="20" fill="#e0699f" stroke="none">✦</text><text x="555" y="50" font-size="22" fill="#f2b84b" stroke="none">✧</text>
+</svg></div>
 <p class="big">Para ti, que eres alguien que no quisiera perder, pero que tampoco quisiera dejar de soñar…</p>
 <p>¿Has escuchado alguna vez ese dicho que dice que quien no arriesga no gana?</p>
 <p>Durante mucho tiempo he pensado que es una frase que se utiliza demasiado, hasta que me encontré en una situación en la que tuve que decidir si creer en ella o simplemente dejar que el miedo decidiera por mí.</p>
@@ -202,6 +232,13 @@ background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,9
 <p>Y si de historias se trata, hasta en la literatura encontramos personas que tuvieron que atreverse a expresar lo que sentían, aun sin saber si serían correspondidas. Porque el amor no siempre comienza con dos personas seguras de lo que quieren; a veces comienza con dos personas que deciden conocerse un poco más.</p>
 <p>He aprendido que arriesgarse no significa estar seguro de ganar. Significa reconocer que algo vale tanto para nosotros que estamos dispuestos a intentarlo, aun sabiendo que no tenemos garantías.</p>
 <p>Y tú, para mí, vales ese intento.</p>
+<div class="doodle"><svg viewBox="0 0 600 108" fill="none" stroke="#5b6fc9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 98H580" stroke-dasharray="2 7"/>
+<path d="M50 98V40H92V98" fill="#fff"/><path d="M44 40L71 14L98 40Z" fill="#ffe9f3"/><path d="M62 98V76a9 9 0 0 1 18 0V98"/><path d="M71 14V4l9 3-9 3"/>
+<path d="M300 94C252 64 262 28 288 34c8 2 11 8 12 12c1-4 4-10 12-12c26-6 38 30-12 60z" fill="#ffd1e8" stroke="#e0699f"/>
+<circle cx="500" cy="64" r="28" fill="#ffe7cf" stroke="#d98b4a"/><path d="M476 46L478 22L496 38M524 46L522 22L504 38" stroke="#d98b4a"/>
+<path d="M486 62q5-5 10 0M504 62q5-5 10 0M497 70h6l-3 3zM500 73q-4 5-8 2M500 73q4 5 8 2M474 70l-16-3M474 75l-16 4M526 70l16-3M526 75l16 4" stroke="#8a5a3a"/>
+<text x="548" y="34" font-size="22" fill="#e0699f" stroke="none">♥</text><text x="160" y="50" font-size="20" fill="#f2b84b" stroke="none">✦</text><text x="400" y="40" font-size="18" fill="#9b5de5" stroke="none">✧</text>
+</svg></div>
 <p>No quiero que pienses que estoy dispuesto a arriesgar nuestra amistad porque no me importe perderla. Es precisamente porque me importa tanto que me cuesta aceptar la idea de quedarme con la duda de lo que podríamos haber sido.</p>
 <p>Porque, si algo tengo claro, es que no quiero que mis sentimientos se conviertan en una carga para ti. Quiero que, si algún día decides darme una oportunidad, sea porque te sientes tranquila, porque confías en mí y porque también tienes curiosidad por descubrir qué podría existir entre nosotros.</p>
 <p>No quiero apresurarte. No quiero pedirte que mañana despiertes sintiendo lo mismo que yo. Tampoco quiero que aceptes por lástima, por compromiso o por miedo a lastimarme.</p>
@@ -229,6 +266,10 @@ background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,9
 <p>Y si resulta que sí…</p>
 <p>Qué bonito sería descubrir que aquello que tanto miedo nos daba perder era, en realidad, el comienzo de algo que ninguno de los dos sabía que podía encontrar.</p>
 <p class="big"><strong>¿Te atreverías a descubrirlo conmigo?</strong></p>
+<div class="doodle"><svg viewBox="0 0 600 108" fill="none" stroke="#5b6fc9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 98H580" stroke-dasharray="2 7"/><g fill="#f4a6c8" stroke="#e0699f" stroke-width="2"><ellipse cx="80" cy="84" rx="9" ry="7"/><circle cx="69" cy="74" r="3.5"/><circle cx="76" cy="69" r="3.5"/><circle cx="84" cy="69" r="3.5"/><circle cx="91" cy="74" r="3.5"/></g><g fill="#f4a6c8" stroke="#e0699f" stroke-width="2"><ellipse cx="140" cy="66" rx="9" ry="7"/><circle cx="129" cy="56" r="3.5"/><circle cx="136" cy="51" r="3.5"/><circle cx="144" cy="51" r="3.5"/><circle cx="151" cy="56" r="3.5"/></g><g fill="#f4a6c8" stroke="#e0699f" stroke-width="2"><ellipse cx="200" cy="84" rx="9" ry="7"/><circle cx="189" cy="74" r="3.5"/><circle cx="196" cy="69" r="3.5"/><circle cx="204" cy="69" r="3.5"/><circle cx="211" cy="74" r="3.5"/></g><text x="270" y="70" font-size="40" fill="#e0699f" stroke="none">♥</text><text x="320" y="86" font-size="26" fill="#9b5de5" stroke="none">♥</text><text x="360" y="58" font-size="22" fill="#f2b84b" stroke="none">♡</text>
+<path d="M470 98V56M470 82q12-2 14-12q-12 0-14 12" stroke="#59a96a"/><g fill="#f4a6c8" stroke="#e0699f"><circle cx="470" cy="44" r="6"/><circle cx="470" cy="62" r="6"/><circle cx="461" cy="53" r="6"/><circle cx="479" cy="53" r="6"/></g><circle cx="470" cy="53" r="4" fill="#f2b84b" stroke="#f2b84b"/>
+<path d="M40 98V58L75 32L110 58V98Z" fill="none" stroke="none"/><text x="520" y="50" font-size="24" fill="#f2b84b" stroke="none">✦</text>
+</svg></div>
 <p class="sign">— <span id="sn"></span> ♡</p>
 <div class="row" id="qBtns">
   <button class="btn" id="yes">Sí, quiero descubrirlo contigo</button>
@@ -246,7 +287,7 @@ background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,9
 /* ====== EDITA AQUÍ ====== */
 const CONFIG={
   nombre:"", tuNombre:"Tavo",
-  whatsapp:"505XXXXXXXX",   /* tu número con código de país, sin + ni espacios */
+  whatsapp:"50582371410",   /* número con código de país (505), sin + ni espacios */
   intro:"Tengo algo para ti. Ábrelo cuando estés lista.",
   piezas:["Todo empieza con unos buenos cimientos: la confianza.","Luego las columnas: las cosas que admiro de ti.","Muros: el espacio donde cabe todo lo que quiero decirte.","Ventanas: desde ahí se ve lo bonito que eres.","Una puerta, siempre abierta, sin ninguna obligación.","Y un techo: para que cualquier lluvia se sienta tranquila a tu lado."],
   corazones:["Me gusta tu forma de ser.","Contigo cualquier conversación se vuelve mi favorita.","Me importas mucho, de verdad.","Admiro lo valiente que eres.","Gracias por ser como eres."],
@@ -255,7 +296,7 @@ const CONFIG={
 };
 /* ========================= */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const total=8;let cur=0,iv;
+const total=9;let cur=0,iv;
 $('#dots').innerHTML='<i></i>'.repeat(total);
 function go(n){cur=n;clearInterval(iv);$$('.screen').forEach((e,i)=>e.classList.toggle('active',i===n));
  $$('#dots i').forEach((d,i)=>d.classList.toggle('on',i<=n));window.scrollTo({top:0,behavior:'smooth'});
@@ -356,6 +397,13 @@ $('#time').onclick=()=>answer('Está perfecto, el tiempo que necesites ♥','"Ne
 function hearts(n){for(let i=0;i<n;i++){const h=document.createElement('div');h.className='float';
  h.textContent=['♥','♡','✦'][i%3];h.style.left=Math.random()*95+'vw';
  h.style.animationDelay=Math.random()*1.2+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),5500)}}
+
+/* Sobre */
+let taps=0;
+$('#env').onclick=()=>{if($('#env').classList.contains('open'))return;taps++;
+  const sl=$('#seal');sl.classList.remove('wob');void sl.getBoundingClientRect();sl.classList.add('wob');
+  if(taps<3){$('#msg7').textContent=taps===1?'Está bien pegado… sigue intentando':'Ya casi…'}
+  else{$('#env').classList.add('open');hearts(14);$('#msg7').textContent='¡Se abrió!';setTimeout(()=>go(8),2300)}};
 </script>
 </body>
 </html>

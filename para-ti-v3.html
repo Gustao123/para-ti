@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para ti</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbeaff;--ink:#3d1a5c;--line:#7a43c0;--accent:#e8559f;--card:#fff7fd;--soft:#e6c9f2;--pur:#9b5de5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b0f2e;--ink:#f3e6ff;--line:#b48af0;--accent:#ff7ab8;--card:#291847;--soft:#3a2561;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b0f2e;--ink:#f3e6ff;--line:#b48af0;--accent:#ff7ab8;--card:#291847;--soft:#3a2561;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;
+background-image:linear-gradient(var(--soft) 1px,transparent 1px),linear-gradient(90deg,var(--soft) 1px,transparent 1px);background-size:28px 28px}
+main{width:100%;max-width:560px;margin:0 auto;padding:18px 16px 50px}
+.screen{display:none;animation:in .6s ease both}.screen.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1,h2{font-family:Caveat,cursive;font-weight:700;margin:.2em 0;line-height:1.1;text-align:center;background:linear-gradient(90deg,var(--pur),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:3rem}h2{font-size:2.1rem}
+p{line-height:1.6;font-size:1.05rem}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;box-shadow:5px 5px 0 var(--line)}
+.btn{font:inherit;font-weight:700;background:linear-gradient(135deg,var(--pur),var(--accent));color:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 20px;cursor:pointer;box-shadow:3px 3px 0 var(--line);text-decoration:none;display:inline-block}
+.btn:active{transform:translate(3px,3px);box-shadow:none}.btn.alt{background:var(--card);color:var(--ink)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;justify-content:center}
+.dots{display:flex;gap:7px;justify-content:center;margin:4px 0 14px}
+.dots i{width:10px;height:10px;border-radius:50%;border:2px solid var(--line);display:block}.dots i.on{background:var(--accent)}
+.g1{display:block}
+svg.plan{width:100%;height:auto;display:block}
+.slot{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:6 5;opacity:.35;transition:all .5s}
+.slot.hint{opacity:1;stroke:var(--accent);animation:pulse .8s infinite alternate}
+@keyframes pulse{to{stroke-width:4}}
+.slot.built{stroke-dasharray:0;opacity:1;stroke:var(--line);fill:var(--card);animation:pop .6s}
+.slot.roof.built{fill:var(--accent)}.slot.door.built{fill:var(--pur)}
+.slot{transform-box:fill-box;transform-origin:50% 100%}
+@keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+.tray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px}
+.pc{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center;font-size:.75rem;font-weight:700;min-width:76px}
+.pc svg{height:34px;max-width:64px;display:block;margin:0 auto 4px;fill:var(--pur);stroke:var(--line)}
+.pc.used{opacity:.2;pointer-events:none}
+.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;transform:translate(-50%,-50%) scale(1.15)}
+.msg{min-height:70px;margin-top:12px;font-family:Caveat,cursive;font-size:1.6rem;text-align:center;line-height:1.25}
+.field{position:relative;height:clamp(300px,55vh,440px);border:2px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;box-shadow:5px 5px 0 var(--line)}
+.field>svg{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.h{position:absolute;border:0;background:none;font-size:1.1rem;color:var(--line);opacity:.2;cursor:pointer;padding:5px;transition:all .4s}
+.h.found{color:#e0455f;opacity:1;transform:scale(1.9)}
+.fall{position:absolute;top:-40px;border:0;background:none;font-size:2.1rem;cursor:pointer;animation:fall 3s linear forwards}
+@keyframes fall{from{top:-40px}to{top:105%}}
+.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mc{aspect-ratio:1;border:2px solid var(--line);border-radius:12px;font-size:clamp(1.4rem,5vw,2.2rem);background:linear-gradient(135deg,var(--pur),var(--accent));color:transparent;cursor:pointer;transition:transform .3s}
+.mc.up{background:var(--card);color:inherit;transform:rotateY(360deg)}.mc.ok{background:var(--soft);color:inherit;border-color:var(--accent)}
+.eq{display:flex;gap:5px;align-items:flex-end;height:46px;justify-content:center;margin:12px 0}
+.eq b{width:8px;background:var(--accent);border-radius:3px;animation:eq 1s ease-in-out infinite}
+.eq b:nth-child(2){animation-delay:.2s}.eq b:nth-child(3){animation-delay:.4s}.eq b:nth-child(4){animation-delay:.1s}.eq b:nth-child(5){animation-delay:.3s}
+@keyframes eq{0%,100%{height:8px}50%{height:44px}}
+.float,.pf{position:fixed;pointer-events:none;z-index:60;color:var(--accent)}
+.float{bottom:-30px;font-size:1.6rem;animation:up 4s linear forwards}
+@keyframes up{to{transform:translateY(-110vh) rotate(20deg);opacity:0}}
+.pf{font-size:1.3rem;animation:pf 1.2s forwards}@keyframes pf{to{transform:translateY(-70px);opacity:0}}
+.center{text-align:center}
+/* gato */
+#catWrap{width:min(320px,80vw);margin:6px auto;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#cat{width:100%;height:auto;display:block;overflow:visible}
+#tail{transform-origin:160px 168px;animation:sway 3s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(12deg)}}
+#eyes{transform-origin:110px 95px;animation:blink 4s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+#head{transform-origin:110px 140px;transition:transform .4s}
+#bodyg{transform-origin:110px 205px;animation:br 3s ease-in-out infinite}@keyframes br{50%{transform:scaleY(1.03)}}
+#eyesC{display:none}.blush{opacity:0;transition:opacity .4s}
+#cat.happy #eyes{display:none}#cat.happy #eyesC{display:block}#cat.happy .blush{opacity:.75}
+#cat.happy #head{transform:rotate(-5deg) translateY(3px)}#cat.happy #tail{animation-duration:.6s}
+.bar{height:12px;border:2px solid var(--line);border-radius:10px;overflow:hidden;max-width:320px;margin:8px auto;background:var(--card)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pur),var(--accent));transition:width .2s}
+/* carta a mano */
+.paper{position:relative;max-width:720px;margin:14px auto 0;padding:28px 22px 24px 62px;color:#1b2f7a;font-family:Caveat,cursive;font-size:1.4rem;
+background-color:#fffdf2;background-image:linear-gradient(90deg,transparent 46px,#ef9a9a 46px,#ef9a9a 48px,transparent 48px),repeating-linear-gradient(transparent,transparent 35px,#bcd0ee 35px,#bcd0ee 36px);
+background-position:0 -8px;border-radius:4px;box-shadow:0 10px 30px rgba(60,20,90,.35);transform:rotate(-.4deg)}
+.paper::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:28px;margin-left:-55px;background:rgba(255,200,230,.75);transform:rotate(-3deg);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.paper p{margin:0 0 36px;line-height:36px;font-size:inherit}
+.paper p:nth-child(odd){transform:rotate(-.25deg)}.paper p:nth-child(even){transform:rotate(.2deg);padding-left:6px}
+.paper .big{font-size:1.8rem;font-weight:700;color:#c2185b}
+.paper strong{font-weight:700;background:linear-gradient(transparent 58%,#ffd1e8 58%)}
+.paper em{text-decoration:underline wavy #c2185b;text-underline-offset:5px}
+.paper .sign{font-size:2.2rem;text-align:right;font-weight:700;transform:rotate(-3deg);padding-right:20px}
+.paper .msg{min-height:0}
+@media (min-width:900px){
+ main{max-width:880px;padding-top:30px}h1{font-size:4rem}h2{font-size:2.6rem}p{font-size:1.15rem}
+ .g1{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;align-items:start}.g1 .tray{margin-top:0}
+ .paper{font-size:1.65rem;padding:40px 50px 30px 90px;background-image:linear-gradient(90deg,transparent 70px,#ef9a9a 70px,#ef9a9a 72px,transparent 72px),repeating-linear-gradient(transparent,transparent 35px,#bcd0ee 35px,#bcd0ee 36px)}
+}
+</style>
+</head>
+<body>
+<main>
+<div class="dots" id="dots"></div>
+
+<section class="screen active" id="s0"><div class="card center">
+  <h1 id="introTitle"></h1><p id="introText"></p>
+  <div class="row"><button class="btn" data-go="1">Abrir</button></div></div></section>
+
+<section class="screen" id="s1">
+  <h2>Arrastra y construye</h2>
+  <div class="card g1">
+    <div>
+    <svg class="plan" id="house" viewBox="0 0 300 250">
+      <line x1="10" y1="236" x2="290" y2="236" stroke="var(--soft)" stroke-width="2"/>
+      <g class="slot" id="t0"><rect x="30" y="220" width="240" height="16"/></g>
+      <g class="slot" id="t1"><rect x="38" y="112" width="14" height="108"/><rect x="248" y="112" width="14" height="108"/></g>
+      <g class="slot" id="t2"><rect x="52" y="120" width="196" height="100"/></g>
+      <g class="slot" id="t3"><rect x="72" y="140" width="40" height="40"/><rect x="188" y="140" width="40" height="40"/></g>
+      <g class="slot door" id="t4"><path d="M132 220V178a18 18 0 0 1 36 0V220Z"/></g>
+      <g class="slot roof" id="t5"><path d="M24 122L150 48l126 74Z"/></g>
+      <text id="heart" x="92" y="166" text-anchor="middle" font-size="22" fill="#e0455f" opacity="0" style="transition:opacity 1s">♥</text>
+    </svg>
+    <div class="msg" id="msg1">Cada pieza tiene su lugar… y su orden.</div>
+    </div>
+    <div>
+    <div class="tray" id="tray"></div>
+    <div class="row"><button class="btn" id="n1" style="display:none" data-go="2">Siguiente →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <h2>Hay algo escondido en el plano</h2>
+  <div class="field" id="field">
+    <svg viewBox="0 0 300 300" preserveAspectRatio="none" fill="none" stroke="var(--line)" stroke-width="1.5">
+      <circle cx="70" cy="70" r="34"/><path d="M70 36v68M36 70h68"/>
+      <path d="M180 250V190a40 40 0 0 1 80 0V250"/><path d="M160 250h120"/>
+      <path d="M30 230l60-40 60 40M45 230v50h90v-50"/><path d="M200 40h70v60h-70zM200 70h70M235 40v60"/>
+    </svg>
+  </div>
+  <div class="msg" id="msg2">Mira bien… son 5 y están muy tímidos.</div>
+</section>
+
+<section class="screen" id="s3">
+  <h2>Atrapa 12 corazones</h2>
+  <div class="field" id="sky"></div>
+  <div class="msg" id="msg3">Cuidado con los 💔 (te quitan 3). Llevas 0/12</div>
+</section>
+
+<section class="screen" id="s4">
+  <h2>Encuentra las parejas</h2>
+  <div class="card"><div class="mem" id="mem"></div></div>
+  <div class="msg" id="msg4">Intentos: 0</div>
+</section>
+
+<section class="screen" id="s5"><div class="card center">
+  <h2 id="catTitle">Alguien te estaba esperando</h2>
+  <div id="catWrap">
+  <svg id="cat" viewBox="0 0 220 215" aria-label="Gatito">
+    <g id="tail"><path d="M165 168C212 164 218 112 192 100" stroke="#f0a35e" stroke-width="16" fill="none" stroke-linecap="round"/></g>
+    <g id="bodyg"><ellipse cx="110" cy="160" rx="62" ry="46" fill="#f6b77a"/>
+      <path d="M70 135q4 12 0 24M150 135q-4 12 0 24" stroke="#e08a47" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="86" cy="203" rx="19" ry="9" fill="#fbd3a8"/><ellipse cx="134" cy="203" rx="19" ry="9" fill="#fbd3a8"/></g>
+    <g id="head">
+      <path d="M66 68L70 20L106 48Z" fill="#f6b77a"/><path d="M154 68L150 20L114 48Z" fill="#f6b77a"/>
+      <path d="M76 56L78 33L95 47Z" fill="#ffb3c7"/><path d="M144 56L142 33L125 47Z" fill="#ffb3c7"/>
+      <circle cx="110" cy="96" r="52" fill="#f6b77a"/>
+      <path d="M110 46v14M98 48l3 12M122 48l-3 12" stroke="#e08a47" stroke-width="4" stroke-linecap="round"/>
+      <g id="eyes"><ellipse cx="90" cy="96" rx="7" ry="9" fill="#2b1b3d"/><circle cx="92.5" cy="92" r="2.6" fill="#fff"/><ellipse cx="130" cy="96" rx="7" ry="9" fill="#2b1b3d"/><circle cx="132.5" cy="92" r="2.6" fill="#fff"/></g>
+      <g id="eyesC"><path d="M82 98q8-9 16 0M122 98q8-9 16 0" stroke="#2b1b3d" stroke-width="3.5" fill="none" stroke-linecap="round"/></g>
+      <ellipse class="blush" cx="76" cy="112" rx="10" ry="6" fill="#ff8fb3"/><ellipse class="blush" cx="144" cy="112" rx="10" ry="6" fill="#ff8fb3"/>
+      <path d="M105 108h10l-5 6z" fill="#ff7aa8"/>
+      <path d="M110 114q-6 9-13 4M110 114q6 9 13 4" stroke="#2b1b3d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M62 104l-24-4M62 112l-24 6M158 104l24-4M158 112l24 6" stroke="#8a5a3a" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </svg></div>
+  <div class="bar"><i id="pbar"></i></div>
+  <div class="msg" id="msg5" style="min-height:40px">Miau…</div>
+  <div class="row"><button class="btn" id="n5" style="display:none" data-go="6">Seguir →</button></div>
+</div></section>
+
+<section class="screen" id="s6"><div class="card center">
+  <h2>Una canción para este momento</h2>
+  <div class="eq"><b></b><b></b><b></b><b></b><b></b></div>
+  <p style="font-weight:700;margin-bottom:0">Viva la Vida — Coldplay</p>
+  <p style="margin-top:4px">Dale play y, cuando quieras, sigue.</p>
+  <div class="row">
+    <a class="btn" target="_blank" rel="noopener" href="https://open.spotify.com/search/Viva%20la%20Vida%20Coldplay">▶ Spotify</a>
+    <a class="btn alt" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Coldplay+Viva+la+Vida">▶ YouTube</a>
+  </div>
+  <div class="row"><button class="btn" data-go="7">Continuar →</button></div>
+</div></section>
+
+<section class="screen" id="s7"><div class="paper letter">
+<p class="big">Para ti, que eres alguien que no quisiera perder, pero que tampoco quisiera dejar de soñar…</p>
+<p>¿Has escuchado alguna vez ese dicho que dice que quien no arriesga no gana?</p>
+<p>Durante mucho tiempo he pensado que es una frase que se utiliza demasiado, hasta que me encontré en una situación en la que tuve que decidir si creer en ella o simplemente dejar que el miedo decidiera por mí.</p>
+<p>Y aquí estoy, escribiéndote estas palabras, dispuesto a hacer un último intento. No porque crea que puedo convencerte de sentir algo que no sientes, sino porque creo que hay historias que merecen, al menos, la oportunidad de descubrir en qué podrían convertirse.</p>
+<p>Sé lo que me dijiste. Sé que tienes miedo. Que nuestra amistad significa mucho para ti y que pensar en perderla por intentar algo más es un riesgo que quizás no quieras correr. Lo entiendo, de verdad. No quisiera que mis sentimientos te hicieran sentir incómoda, que nuestra amistad se convirtiera en una obligación o que sintieras que tienes que darme una respuesta que no nace de tu corazón.</p>
+<p>Pero hay algo que quisiera que pensaras conmigo.</p>
+<p>¿Y si el miedo a perder algo bonito nos impide descubrir algo todavía más bonito?</p>
+<p>¿Y si, por intentar proteger lo que tenemos, terminamos renunciando a algo que también podría hacernos felices?</p>
+<p>No te estoy diciendo que necesariamente vaya a funcionar. No tengo una bola de cristal que me permita prometerte un final feliz. Pero tampoco tenemos una que nos diga que va a salir mal.</p>
+<p>Y creo que esa es precisamente la cuestión: ninguno de los dos conoce el final de una historia que ni siquiera nos hemos permitido comenzar.</p>
+<p>Piensa en Elizabeth Bennet y el señor Darcy, los protagonistas de <em>Orgullo y prejuicio</em>, de Jane Austen. Sus primeras impresiones, sus errores y sus prejuicios pudieron mantenerlos separados para siempre. Sin embargo, cuando se permitieron mirar más allá de lo que creían saber del otro, descubrieron algo que no habían visto al principio.</p>
+<p>No te cuento esto porque crea que nuestra historia tiene que parecerse a la de un libro. Te lo cuento porque, a veces, conocer a alguien como amigo no significa que ya hayamos descubierto todas las formas en que podemos quererlo.</p>
+<p>Y si de historias se trata, hasta en la literatura encontramos personas que tuvieron que atreverse a expresar lo que sentían, aun sin saber si serían correspondidas. Porque el amor no siempre comienza con dos personas seguras de lo que quieren; a veces comienza con dos personas que deciden conocerse un poco más.</p>
+<p>He aprendido que arriesgarse no significa estar seguro de ganar. Significa reconocer que algo vale tanto para nosotros que estamos dispuestos a intentarlo, aun sabiendo que no tenemos garantías.</p>
+<p>Y tú, para mí, vales ese intento.</p>
+<p>No quiero que pienses que estoy dispuesto a arriesgar nuestra amistad porque no me importe perderla. Es precisamente porque me importa tanto que me cuesta aceptar la idea de quedarme con la duda de lo que podríamos haber sido.</p>
+<p>Porque, si algo tengo claro, es que no quiero que mis sentimientos se conviertan en una carga para ti. Quiero que, si algún día decides darme una oportunidad, sea porque te sientes tranquila, porque confías en mí y porque también tienes curiosidad por descubrir qué podría existir entre nosotros.</p>
+<p>No quiero apresurarte. No quiero pedirte que mañana despiertes sintiendo lo mismo que yo. Tampoco quiero que aceptes por lástima, por compromiso o por miedo a lastimarme.</p>
+<p>Lo único que quisiera pedirte es que no tomemos el miedo como si fuera una respuesta definitiva antes de haber descubierto qué hay detrás de él.</p>
+<p>Por eso, hoy quiero proponerte algo.</p>
+<p>Dame un mes. O un mes y medio, si necesitas un poco más de tiempo.</p>
+<p>No te estoy pidiendo que me prometas una relación al terminar ese tiempo. Ni siquiera te estoy pidiendo que me prometas que vas a enamorarte de mí.</p>
+<p>Te estoy pidiendo la oportunidad de demostrarte, con hechos y no solamente con palabras, que mis sentimientos son sinceros; que puedo cuidar lo que tenemos, respetar tus tiempos, escucharte, comprender tus dudas y darte la tranquilidad que necesitas para conocerme también desde esta otra perspectiva.</p>
+<p>Durante ese tiempo, quisiera que nos permitiéramos descubrirnos de una manera diferente. Que compartiéramos momentos, que habláramos con sinceridad, que nos diéramos la oportunidad de ver si esta conexión que ya existe entre nosotros puede crecer hacia algo más.</p>
+<p>Y cuando ese tiempo termine, podremos hablar con el corazón en la mano. Si descubrimos que podemos construir algo bonito juntos, me sentiré inmensamente feliz de que hayamos tenido el valor de intentarlo. Pero si después de conocernos de esa manera sientes que tu corazón no va hacia el mismo lugar que el mío, respetaré tu decisión.</p>
+<p>No te prometo que nunca habrá dificultades, ni que siempre sabré qué hacer. Te prometo que mis intenciones son sinceras, que no quiero jugar con tus sentimientos y que, si decides darme esa oportunidad, voy a tomarla con la seriedad y el cariño que mereces.</p>
+<p>Y quiero que sepas algo más: no espero que desaparezcan todos tus miedos antes de dar el primer paso. Solo quisiera que, si hay una parte de ti que también se pregunta qué pasaría si lo intentáramos, no la silencies únicamente por miedo a lo que podría salir mal.</p>
+<p>Quizás no seamos una historia de esas que terminan convirtiéndose en un libro. Quizás lo nuestro nunca llegue a tener un título bonito ni una fecha que celebrar. Pero también existe la posibilidad de que, dentro de algún tiempo, miremos hacia atrás y agradezcamos no habernos quedado con la duda.</p>
+<p>Porque hay cosas que podemos lamentar después de intentarlas, pero hay otras que nos acompañan durante mucho tiempo precisamente porque nunca nos atrevimos a descubrirlas.</p>
+<p>Y yo no quiero pasar los años preguntándome qué habría pasado si nos hubiéramos dado una oportunidad.</p>
+<p>No quiero que sientas que tienes que elegirme hoy. Solo quisiera que me permitieras demostrarte por qué podrías elegirme algún día.</p>
+<p>Sé que nuestra amistad es valiosa. Para mí también lo es. Y no quiero que estas palabras borren todo lo bonito que hemos construido. Al contrario, te las escribo porque eres alguien con quien he compartido tantas cosas que me cuesta imaginar que nunca podamos explorar esa posibilidad que llevo tanto tiempo guardando en mi corazón.</p>
+<p>Quizás al final tengas razón y lo mejor hubiera sido quedarnos con la duda. Pero, antes de aceptar esa posibilidad, quiero saber que hice todo lo que estaba en mis manos para no dejar escapar algo que podría haber sido extraordinario.</p>
+<p>Así que aquí está mi último intento, mi última manera de decirte que me importas y que, si existe aunque sea una pequeña posibilidad de que podamos ser algo más, me gustaría descubrirla contigo.</p>
+<p><strong>No te pido que arriesgues tu corazón por una promesa. Te pido que me permitas ganarme tu confianza, paso a paso, y que después decidas si vale la pena dar ese paso conmigo.</strong></p>
+<p>Y si tu respuesta sigue siendo que prefieres no intentarlo, la respetaré. No quiero que te quedes por presión ni que nuestra amistad dependa de tu respuesta a esta carta.</p>
+<p>Pero si en algún rincón de tu corazón también existe esa pregunta que no te has atrevido a responder, entonces te propongo que no la respondamos con miedo.</p>
+<p>Respondámosla con tiempo, con sinceridad y con la oportunidad de descubrirlo.</p>
+<p>Porque, si al final resulta que no éramos el uno para el otro, al menos sabremos que fuimos valientes.</p>
+<p>Y si resulta que sí…</p>
+<p>Qué bonito sería descubrir que aquello que tanto miedo nos daba perder era, en realidad, el comienzo de algo que ninguno de los dos sabía que podía encontrar.</p>
+<p class="big"><strong>¿Te atreverías a descubrirlo conmigo?</strong></p>
+<p class="sign">— <span id="sn"></span> ♡</p>
+<div class="row" id="qBtns">
+  <button class="btn" id="yes">Sí, quiero descubrirlo contigo</button>
+  <button class="btn alt" id="time">Necesito tiempo</button>
+</div>
+<div class="center" id="after" style="display:none">
+  <p class="msg" id="answer"></p>
+  <p style="font-size:1.2rem">Último paso: avísale a <span id="tn"></span> tu respuesta.</p>
+  <a class="btn" id="wa" target="_blank" rel="noopener">Enviar mi respuesta por WhatsApp</a>
+</div>
+</div></section>
+</main>
+
+<script>
+/* ====== EDITA AQUÍ ====== */
+const CONFIG={
+  nombre:"", tuNombre:"Tavo",
+  whatsapp:"505XXXXXXXX",   /* tu número con código de país, sin + ni espacios */
+  intro:"Tengo algo para ti. Ábrelo cuando estés lista.",
+  piezas:["Todo empieza con unos buenos cimientos: la confianza.","Luego las columnas: las cosas que admiro de ti.","Muros: el espacio donde cabe todo lo que quiero decirte.","Ventanas: desde ahí se ve lo bonito que eres.","Una puerta, siempre abierta, sin ninguna obligación.","Y un techo: para que cualquier lluvia se sienta tranquila a tu lado."],
+  corazones:["Me gusta tu forma de ser.","Contigo cualquier conversación se vuelve mi favorita.","Me importas mucho, de verdad.","Admiro lo valiente que eres.","Gracias por ser como eres."],
+  catch:"Eres atrapadora de corazones y ni te diste cuenta ♥",
+  memoria:"¡Lo lograste! Buena memoria… yo no olvido nada de lo que vivimos."
+};
+/* ========================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const total=8;let cur=0,iv;
+$('#dots').innerHTML='<i></i>'.repeat(total);
+function go(n){cur=n;clearInterval(iv);$$('.screen').forEach((e,i)=>e.classList.toggle('active',i===n));
+ $$('#dots i').forEach((d,i)=>d.classList.toggle('on',i<=n));window.scrollTo({top:0,behavior:'smooth'});
+ if(n===3)startCatch();}
+$$('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+$('#introTitle').textContent='Hola'+(CONFIG.nombre?', '+CONFIG.nombre:'');
+$('#introText').textContent=CONFIG.intro;
+$('#tn').textContent=CONFIG.tuNombre;$('#sn').textContent=CONFIG.tuNombre;
+
+/* Juego 1: construir (orden + señuelos) */
+const P=[['Cimientos','30 220 240 16','<rect x="30" y="220" width="240" height="16"/>'],
+['Columnas','38 112 224 108','<rect x="38" y="112" width="14" height="108"/><rect x="248" y="112" width="14" height="108"/>'],
+['Muros','52 120 196 100','<rect x="52" y="120" width="196" height="100"/>'],
+['Ventanas','72 140 156 40','<rect x="72" y="140" width="40" height="40"/><rect x="188" y="140" width="40" height="40"/>'],
+['Puerta','132 160 36 60','<path d="M132 220V178a18 18 0 0 1 36 0V220Z"/>'],
+['Techo','24 48 252 74','<path d="M24 122L150 48l126 74Z"/>'],
+['Chimenea','0 0 20 40','<rect x="2" y="2" width="16" height="36"/>'],
+['Antena','0 0 20 40','<path d="M10 38V6M2 14l8-8 8 8" fill="none"/>']];
+const need=[[],[0],[1],[2],[2],[3,4]],fails=[];let done=0;
+[...P.keys()].sort(()=>Math.random()-.5).forEach(i=>{
+  const el=document.createElement('div');el.className='pc';
+  el.innerHTML='<svg viewBox="'+P[i][1]+'" preserveAspectRatio="xMidYMid meet">'+P[i][2]+'</svg>'+P[i][0];
+  el.addEventListener('pointerdown',e=>{
+    e.preventDefault();const slot=i<6?$('#t'+i):null;if(slot&&(fails[i]||0)>=2)slot.classList.add('hint');
+    const g=el.cloneNode(true);g.classList.add('ghost');document.body.appendChild(g);
+    const mv=ev=>{g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px'};mv(e);
+    const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);
+      g.remove();if(slot)slot.classList.remove('hint');
+      const inside=(r,m)=>ev.clientX>r.left-m&&ev.clientX<r.right+m&&ev.clientY>r.top-m&&ev.clientY<r.bottom+m;
+      if(!slot){if(inside($('#house').getBoundingClientRect(),0))$('#msg1').textContent='Esa no va en este plano 😅';return}
+      if(inside(slot.getBoundingClientRect(),12)){
+        const miss=need[i].find(k=>!$('#t'+k).classList.contains('built'));
+        if(miss!==undefined){$('#msg1').textContent='Aún no… antes va algo más abajo.';return}
+        slot.classList.add('built');el.classList.add('used');$('#msg1').textContent=CONFIG.piezas[i];done++;
+        if(done===6){setTimeout(()=>$('#heart').style.opacity=1,400);$('#n1').style.display='inline-block';hearts(10)}
+      }else if(inside($('#house').getBoundingClientRect(),0)){fails[i]=(fails[i]||0)+1;$('#msg1').textContent='Casi… ese no es su lugar.'}};
+    addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up);
+  });
+  $('#tray').appendChild(el);
+});
+
+/* Juego 2: 5 corazones tímidos */
+let found=0;
+[[16,20],[74,12],[88,60],[42,84],[8,64]].forEach((p,i)=>{
+  const b=document.createElement('button');b.className='h';b.textContent='♡';
+  b.style.left=p[0]+'%';b.style.top=p[1]+'%';b.setAttribute('aria-label','algo escondido');
+  b.onclick=()=>{if(b.classList.contains('found'))return;b.classList.add('found');b.textContent='♥';found++;
+    $('#msg2').textContent=CONFIG.corazones[i];hearts(4);if(found===5)setTimeout(()=>go(3),2600)};
+  $('#field').appendChild(b);
+});
+
+/* Juego 3: atrapar con 💔 */
+let score=0;
+function startCatch(){score=0;$('#sky').innerHTML='';$('#msg3').textContent='Cuidado con los 💔 (te quitan 3). Llevas 0/12';
+  iv=setInterval(()=>{
+    const bad=Math.random()<.25,b=document.createElement('button');b.className='fall';
+    b.textContent=bad?'💔':['💜','💗'][Math.random()<.5?0:1];
+    b.style.left=(Math.random()*82+4)+'%';b.style.animationDuration=(2.2+Math.random()*1.1)+'s';
+    b.onpointerdown=()=>{b.remove();
+      if(bad){score=Math.max(0,score-3);$('#sky').classList.remove('shake');void $('#sky').offsetWidth;$('#sky').classList.add('shake');$('#msg3').textContent='¡Ay! Eso era 💔 (−3). Llevas '+score+'/12';return}
+      score++;
+      if(score>=12){clearInterval(iv);$('#sky').innerHTML='';$('#msg3').textContent=CONFIG.catch;hearts(10);setTimeout(()=>go(4),2600)}
+      else $('#msg3').textContent='Llevas '+score+'/12'};
+    b.onanimationend=()=>b.remove();$('#sky').appendChild(b)},520);}
+
+/* Juego 4: memoria 12 cartas */
+const E=['🏛️','🌉','🏰','⛪','🗼','🕌'];let first=null,lock=false,pairs=0,tries=0;
+[...E,...E].sort(()=>Math.random()-.5).forEach(s=>{
+  const c=document.createElement('button');c.className='mc';c.textContent=s;
+  c.onclick=()=>{if(lock||c.classList.contains('up')||c.classList.contains('ok'))return;c.classList.add('up');
+    if(!first){first=c;return}
+    tries++;$('#msg4').textContent='Intentos: '+tries;
+    if(first.textContent===c.textContent){first.classList.replace('up','ok');c.classList.replace('up','ok');first=null;pairs++;
+      if(pairs===6){$('#msg4').textContent=CONFIG.memoria;hearts(10);setTimeout(()=>go(5),2800)}}
+    else{lock=true;const a=first;first=null;setTimeout(()=>{a.classList.remove('up');c.classList.remove('up');lock=false},700)}};
+  $('#mem').appendChild(c);});
+
+/* Gato: acariciar */
+let purr=0,last=null,idleT,lastPuff=0;
+$('#catWrap').addEventListener('pointermove',e=>{
+  if(last){purr=Math.min(100,purr+Math.hypot(e.clientX-last.x,e.clientY-last.y)*.1)}
+  last={x:e.clientX,y:e.clientY};$('#cat').classList.add('happy');
+  clearTimeout(idleT);idleT=setTimeout(()=>{$('#cat').classList.remove('happy');last=null},450);
+  $('#pbar').style.width=purr+'%';
+  const t=Date.now();if(t-lastPuff>450){lastPuff=t;puff(e.clientX,e.clientY)}
+  $('#msg5').textContent=purr>=100?'¡Le encantaste! ♥':purr>60?'Prrrrrr… ♥':purr>20?'Prrr…':'Miau…';
+  if(purr>=100&&$('#n5').style.display==='none'){$('#n5').style.display='inline-block';hearts(10)}});
+$('#catWrap').addEventListener('pointerleave',()=>{last=null});
+function puff(x,y){const h=document.createElement('div');h.className='pf';h.textContent='♥';h.style.left=x+'px';h.style.top=y+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),1300)}
+
+/* Respuesta */
+function answer(t,txt){$('#qBtns').style.display='none';$('#after').style.display='block';
+  $('#answer').textContent=t;hearts(18);
+  $('#wa').href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hola '+CONFIG.tuNombre+', leí tu carta y mi respuesta es: '+txt)}
+$('#yes').onclick=()=>answer('Gracias por darle una oportunidad a esto ♥','"Sí, quiero descubrirlo contigo" 💜');
+$('#time').onclick=()=>answer('Está perfecto, el tiempo que necesites ♥','"Necesito tiempo" 💗');
+
+function hearts(n){for(let i=0;i<n;i++){const h=document.createElement('div');h.className='float';
+ h.textContent=['♥','♡','✦'][i%3];h.style.left=Math.random()*95+'vw';
+ h.style.animationDelay=Math.random()*1.2+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),5500)}}
+</script>
+</body>
+</html>
